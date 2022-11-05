@@ -10,7 +10,7 @@ general, it is more convenient to use venv.
 
 ##### To launch test:
 
-`python test_converter`
+`python test.py`
 
 ##### Sources:
 1. ElementTree documentation - https://docs.python.org/3/library/xml.etree.elementtree.html#xpath-support

@@ -15,10 +15,10 @@ logger = logging.getLogger(__name__)
 ###############################################################################
 # SERVICE LOCATIONS
 ###############################################################################
-XML_FILES_PATH = 'xml_files'
-MAIN_XML_PATH = f'{XML_FILES_PATH}/main.xml'
-PARSE_XML_PATH = f'{XML_FILES_PATH}/DLTINS_20210117_01of01.xml'
-CSV_FILE_PATH = 'csv_files/DLTINS_20210117_01of01.csv'
+FILES_PATH = 'external_files'
+MAIN_XML_PATH = f'{FILES_PATH}/main.xml'
+PARSE_XML_PATH = f'{FILES_PATH}/DLTINS_20210117_01of01.xml'
+CSV_FILE_PATH = f'{FILES_PATH}/DLTINS_20210117_01of01.csv'
 CSV_FILE_HEADERS = ["FinInstrmGnlAttrbts.Id",
                     "FinInstrmGnlAttrbts.FullNm",
                     "FinInstrmGnlAttrbts.ClssfctnTp",
@@ -106,7 +106,7 @@ class XmlCsvConverter:
 
     def get_download_link(self) -> str:
         """
-        Parse xml_files/main.xml file to get download link for the DLTINS.xml
+        Parse external_files/main.xml file to get download link for the DLTINS.xml
         :return: download_link
         """
         tree = self.read_xml(MAIN_XML_PATH)
@@ -118,13 +118,13 @@ class XmlCsvConverter:
 
     def extract_zip(self):
         """
-        Download zip file with download link, extract all files to xml_files.
+        Download zip file with download link, extract all files to external_files.
         """
         r = self.request_to_url()
         with zipfile.ZipFile(io.BytesIO(r.content)) as z:
             if z.testzip() is not None:
                 logger.error("Bad zip file")
-            z.extractall(XML_FILES_PATH)
+            z.extractall(FILES_PATH)
             logger.info("ZIP file was successfully downloaded and extracted.")
             return z.testzip()
 
